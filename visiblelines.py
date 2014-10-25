@@ -273,7 +273,7 @@ def main(argv):
   try:
     f = open(benchmarkfile, "w+")
     f.write("Number Of Equations,Algorithm 1 Duration,Algorithm 2 Duration," +
-      "Algorithm 3 Duration\n")
+      "Algorithm 3 Duration, Algorithm 4 Duration\n")
     f.close()
     f = open(outputfile, "w+")
     f.close()
