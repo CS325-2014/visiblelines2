@@ -235,6 +235,10 @@ def alg3(equations):
       if ykK >= equations[i].value(xkK):
         break
 
+# algorithm 4
+def alg4(equations):
+  debug_message("NOT IMPLEMENTED")
+
 # ---- [ main ] ---------------------------------------------------------------
 
 def main(argv):
