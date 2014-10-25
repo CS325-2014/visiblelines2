@@ -69,46 +69,46 @@ def test_case(string):
     for i in range(0, len(slopes)):
       equations.append(LineEquation(slopes[i], intercepts[i]))
 
-    # # run algorithm 1
-    # debug_message("Beginning Algorithm 1.")
-    # tstart = timer()
-    # alg1(equations)
-    # tend = timer()
-    # alg1_duration = tend - tstart
-    # debug_message("Algorithm 1 Finished. Duration: {0} seconds."
-    #   .format(alg1_duration))
+    # run algorithm 1
+    debug_message("Beginning Algorithm 1.")
+    tstart = timer()
+    #alg1(equations)
+    tend = timer()
+    alg1_duration = tend - tstart
+    debug_message("Algorithm 1 Finished. Duration: {0} seconds."
+      .format(alg1_duration))
 
-    # # run algorithm 2
-    # debug_message("Beginning Algorithm 2.")
-    # tstart = timer()
-    # alg2(equations)
-    # tend = timer()
-    # alg2_duration = tend - tstart
-    # debug_message("Algorithm 2 Finished. Duration: {0} seconds."
-    #   .format(alg2_duration))
-
-    # # run algorithm 3
-    # debug_message("Beginning Algorithm 3.")
-    # tstart = timer()
-    # alg3(equations)
-    # tend = timer()
-    # alg3_duration = tend - tstart
-    # debug_message("Algorithm 3 Finished. Duration: {0} seconds."
-    #   .format(alg3_duration))
+    # run algorithm 2
+    debug_message("Beginning Algorithm 2.")
+    tstart = timer()
+    #alg2(equations)
+    tend = timer()
+    alg2_duration = tend - tstart
+    debug_message("Algorithm 2 Finished. Duration: {0} seconds."
+      .format(alg2_duration))
 
     # run algorithm 3
-    debug_message("Beginning Algorithm 4.")
+    debug_message("Beginning Algorithm 3.")
     tstart = timer()
-    alg3(equations)
+    #alg3(equations)
     tend = timer()
     alg3_duration = tend - tstart
     debug_message("Algorithm 3 Finished. Duration: {0} seconds."
       .format(alg3_duration))
 
+    # run algorithm 3
+    debug_message("Beginning Algorithm 4.")
+    tstart = timer()
+    alg4(equations)
+    tend = timer()
+    alg4_duration = tend - tstart
+    debug_message("Algorithm 4 Finished. Duration: {0} seconds."
+      .format(alg4_duration))
+
     # write benchmarking results
     f = open(benchmarkfile, "a")
-    f.write("{0},{1},{2},{3}\n".format(len(equations), alg1_duration,
-      alg2_duration, alg3_duration))
+    f.write("{0},{1},{2},{3},{4}\n".format(len(equations), alg1_duration,
+      alg2_duration, alg3_duration, alg4_duration))
     f.close()
 
     # write actual results
@@ -237,6 +237,8 @@ def alg3(equations):
 
 # algorithm 4
 def alg4(equations):
+  def merge_visible(equations1, equations2):
+    debug_message("NOT IMPLEMENTED")
   debug_message("NOT IMPLEMENTED")
 
 # ---- [ main ] ---------------------------------------------------------------
