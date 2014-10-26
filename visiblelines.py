@@ -255,7 +255,18 @@ def alg4(equations):
           temp_x, temp_y = intersection(equations2[i], equations2[i+1])
           intersect_array2.append((temp_x, temp_y))
     if len(equations1) == 1 and len(equations2) == 1:
-      return
+      equations1.extend(equations2)
+      return equations1
+
+    if len(equations1) + len(equations2) == 3:
+      if len(equations1) == 2 and len(equations2) == 1:
+        if intersect_array1[0][1] < equations2[0].value(intersect_array1[0][0]):
+          equations1[1].visible = False
+      elif len(equations2) == 2 and len(equations1) == 1:
+        if intersect_array2[0][1] < equations2[0].value(intersect_array2[0][0]):
+          equations2[0].visible = False
+      equations1.extend(equations2)
+      return equations1
 
     if len(equations1) + len(equations2) >= 4:
       # boolean to check to see if the left is bigger than the right
@@ -280,26 +291,22 @@ def alg4(equations):
       for k in range(0, len(equations2)):
         if k < j:
           equations[k].visible = False
-    elif len(equations1) == 2 and len(equations2) == 1:
-      if intersect_array1[0][1] < equations2[0].value(intersect_array1[0][0]):
-        equations1[1].visible = False
-    elif len(equations2) == 2 and len(equations1) == 1:
-      if intersect_array2[0][1] < equations2[0].value(intersect_array2[0][0]):
-        equations2[0].visible = False
+    equations1.extend(equations2)
+    return equations1
 
   # base case for recursive call
   if len(equations) <= 2:
     for e in equations:
       e.visible = True
     return equations
-  # this breaks each subsection into 2 parts, recursively 
+  # this breaks each subsection into 2 parts, recursively
   else:
-    debug_message("equations: {0}".format(equations))
-    debug_message("left: {0} right: {1}".format(equations[:len(equations)/2],
-      equations[len(equations)/2 + 1:]))
+    # debug_message("equations: {0}".format(equations))
+    # debug_message("left: {0} right: {1}".format(equations[:len(equations)/2],
+    #   equations[len(equations)/2:]))
     equations_left = alg4(equations[:len(equations)/2])
-    equations_right = alg4(equations[len(equations)/2 + 1:])
-    debug_message("left: {0} right: {1}".format(equations_left, equations_right))
+    equations_right = alg4(equations[len(equations)/2:])
+    debug_message("alg4 left: {0} right: {1}".format(equations_left, equations_right))
     return merge_visible(equations_left, equations_right)
 
 
