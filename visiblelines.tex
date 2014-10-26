@@ -67,6 +67,38 @@ $\square$
 
 \section{Proof of Algorithm 4}
 
+\subsection{Proof of \textsc{MergeVisible}}
+
+Suppose we have two sets of visible lines $Z = \{ z_1, ..., z_t \}$ and $ Z' = \{ z'_1, ..., z'_s \}$.
+By Claim 3, we know that the two values $i$ and $j$ exist such that the visible subset of $Z \cup Z'$ is 
+$\{z_1, ..., z_i \} \cup \{ z'_j, ..., z'_s \}$ where $i \geq 1$ and $j \leq s$.
+
+Let $Intersection(z_j, z_k)$ be the point of intersection with some $(x, y)$ between lines $z_j$ and $z_k$. 
+
+Let $I  = \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, k, j \in \mathbb{Z} \}$.
+
+Let $I' = \{ Intersection(z'_j, z'_k) | 1 \leq j \leq s - 1, k = j + 1, k, j \in \mathbb{Z}  \}$.
+
+Let $i,j = 0$.
+
+Initially, $I(i)_y$ (the $y$ value of the first element of $I$) will be greater than $I'(j)_y$ (the $y$ value of the first element of $I'$) because the lines are ordered according to slope. We increase the index of the value with a smaller $x$ value until the value of $I'(j)_y > I(i)_y$. At this point, there had to have been a point of intersection between the two line segments $(I(i), I(i-1))$ and $(I'(j), I'(j-1))$. 
+
+Therefore, we can use Claim 3 and this intersection range to determine the visible subset of $Z \cup Z'$.
+
+$\square$
+
+\subsection{Proof of Algorithm}
+
+For a set of lines $Z_n = \{ z_1, ..., z_n \}$, we can determine the subset of visible lines using algorithm 4.
+
+\textbf{Base Case}: If we only have 1 or 2 lines in the set, they are trivially visible.
+
+\textbf{Inductive Hypothesis}: The two sets of lines $Z = \{ z_1, ..., z_t \}$ and $ Z' = \{ z'_1, ..., z'_s \}$ are each sets of visible lines ordered by slope increasingly, and the slope of $z'_1$ is bigger than the slope of $z_t$.
+
+\textbf{Inductive Step}: Since we know that \textsc{MergeVisible} works, we can use it to find the subset of visible lines for $Z \cup Z'$.
+
+Therefore, by induction, algorithm 4 can correctly determine the subset of visible lines using algorithm 4.
+
 $\square$
 
 \section{Benchmarking Results and Analysis}
