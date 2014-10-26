@@ -254,6 +254,7 @@ def alg4(equations):
         if ((i + 1) < len(equations2)):
           temp_x, temp_y = intersection(equations2[i], equations2[i+1])
           intersect_array2.append((temp_x, temp_y))
+
     if len(equations1) == 1 and len(equations2) == 1:
       equations1.extend(equations2)
       return equations1
