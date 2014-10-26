@@ -6,6 +6,7 @@
 \usepackage{comment}
 \usepackage{graphicx}
 \usepackage{amssymb}
+\usepackage{algpseudocode}
 
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{1em}
@@ -39,15 +40,26 @@
 
 \end{titlepage}
 
+
 \section{Pseudocode}
 
-\textsc{MergeVisible:}
-\begin{verbatim}
-\end{verbatim}
+\textsc{MergeVisible}(equation1, equation2)
 
-\textsc{Algorithm4:}
-\begin{verbatim}
-\end{verbatim}
+%\begin{algorithmic}
+%\end{algorithmic}
+
+\textsc{Algorithm4}(equations):
+
+\begin{algorithmic}
+\If {equations.length $\leq 2$}
+	\State all equations are visible
+\Else
+	\State $x \gets \lfloor\frac{equations.length}{2}\rfloor$
+	\State left $\gets$ \textsc{Algorithm4}(equations$[start:x])$
+	\State right $\gets$ \textsc{Algorithm4}(equations$[x+1:end])$
+	\State \textsc{MergeVisible}(left, right)
+\EndIf
+\end{algorithmic}
 
 \section{Proof of Claim 3}
 
