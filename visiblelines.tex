@@ -47,7 +47,7 @@
 
 \begin{algorithmic}
 \State intersects1 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equations1 $\}$
-\State intersects2 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equation2s $\}$
+\State intersects2 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equations2 $\}$
 \State i, j $\gets 0$
 \While{intersects1[i] > intersects2[j] == intersects1[0] > intersects2[0]}
 	\If {i == intersects1.length - 1 or j == intersects2.length - 1}
