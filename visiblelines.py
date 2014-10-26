@@ -257,8 +257,7 @@ def alg4(equations):
     if len(equations1) == 1 and len(equations2) == 1:
       return
 
-
-    if len(equations1) >= 2 and len(equations2) >= 2:
+    if len(equations1) + len(equations2) >= 4:
       # boolean to check to see if the left is bigger than the right
       bigger_y = False
       bigger_y = (intersect_array1[0][1] > intersect_array2[0][1])
