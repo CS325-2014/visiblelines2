@@ -238,15 +238,46 @@ def alg3(equations):
 # algorithm 4
 def alg4(equations):
   def merge_visible(equations1, equations2):
-    intercepts = []
-    for e in equations1:
-      intercepts.append(intersection(equations1[i], equations[i+1]))
+    intersect_array1 = []
+    intersect_array2 = []
+
+    # add intersect points to the arrays
+    for i in range(0, len(equations1)):
+      if ((i + 1) < len(equations1)):
+        intersect_array1.append((intersection(equations1[i], equations1[i+1])))
+    for i in range(0, len(equations2)) 
+      if ((i + 1) < len(equations2)):
+        intersect_array2.append((intersection(equations2[i], equations2[i+1])))
+
+    # boolean to check to see if the left is bigger than the right
+    bool bigger_y = False
+    bigger_y = (intersect_array1[0][1] > intersect_array2[0][1])
+
+    length1 = len(intersect_array1)
+    length2 = len(intersect_array2)
+    int i = 0
+    int j = 0
+    while bigger_y:
+      if i == length1 || i == length2:
+        break
+      bigger_y = (intersect_array1[i][1] > intersect_array2[j][1])
+      if intersect_array1[i][0] > intersect_array2[j][0]:
+        j += 1
+      else:
+        i += 1
+    for k in range(0, len(equations1)):
+      if k > i:
+        equations[k].visible = False
+    for k in range(0, len(equations2)):
+      if k < j:
+        equations[k].visible = False
 
   # base case for recursive call
   if len(equations) <= 2:
     for e in equations:
       e.visible = True
     return equations
+  # this breaks each subsection into 2 parts, recursively (Theta(logn) time)
   else:
     equations_left = alg4(equations[:len(equations)/2])
     equations_right = alg4(equations[len(equations)/2 + 1:])
