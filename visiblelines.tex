@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{comment}
 \usepackage{graphicx}
+\usepackage{amssymb}.
 
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{1em}
@@ -47,11 +48,17 @@
 
 \section{Proof of Claim 3}
 
-Suppose we have two sets of visible lines, $Z = \{ z_1, ..., z_t \}$ and $Z' = \{ z'_1, ..., z'_s \}$. Let $Intersection(z_j, z_k)$ be the point of intersection with some $(x, y)$ between lines $z_j$ and $z_k$. 
+Suppose we have two sets of visible lines, $Z = \{ z_1, ..., z_t \}$ and $Z' = \{ z'_1, ..., z'_s \}$, where each set of lines is ordered increasingly by slope, and the slope of $z'_1$ is greater than the slope of $z_t$. Let $Intersection(z_j, z_k)$ be the point of intersection with some $(x, y)$ between lines $z_j$ and $z_k$. 
 
-Let $I  = \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1 \}.
+Let $I  = \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, k, j \in \mathbb{Z} \}$.
 
-Let $I' = \{ Intersection(z'_j, z'_k) | 1 \leq j \leq s - 1, k = j + 1 \}.
+Let $I' = \{ Intersection(z'_j, z'_k) | 1 \leq j \leq s - 1, k = j + 1, k, j \in \mathbb{Z}  \}$.
+
+Now we have $I$ and $I'$, two sets of points that each form a convex polyline (since the lines in $Z$ and $Z'$ are ordered by slope and visible). Since these are two convex polylines, there is clearly only one point of intersection between them. This point must be an intersection between some line $z_i \in Z$ and some line $z'_j \in Z'$.
+
+We can observe that $1 \leq i \leq t$ and $1 \leq j \leq s$. Clearly, based on the image of two convex polylines, we can see that $\forall z_x \in Z$ such that $x > i$, $z_x$ is not visible. Similarly, $\forall z'_x in Z'$ such that $x < j$, $z'_x$ is not visible.
+
+Therefore, the visible subset of $Z \cup Z'$ is $\{z_1, ..., z_i \} \cup \{ z'_j, ..., z'_s \}$.
 
 $\square$
 
