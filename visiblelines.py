@@ -238,8 +238,20 @@ def alg3(equations):
 # algorithm 4
 def alg4(equations):
   def merge_visible(equations1, equations2):
-    debug_message("NOT IMPLEMENTED")
-  debug_message("NOT IMPLEMENTED")
+    intercepts = []
+    for e in equations1:
+      intercepts.append(intersection(equations1[i], equations[i+1]))
+
+  # base case for recursive call
+  if len(equations) <= 2:
+    for e in equations:
+      e.visible = True
+    return equations
+  else:
+    equations_left = alg4(equations[:len(equations)/2])
+    equations_right = alg4(equations[len(equations)/2 + 1:])
+    return merge_visible(equations_left, equations_right)
+
 
 # ---- [ main ] ---------------------------------------------------------------
 
