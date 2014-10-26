@@ -96,7 +96,7 @@ def test_case(string):
     debug_message("Algorithm 3 Finished. Duration: {0} seconds."
       .format(alg3_duration))
 
-    # run algorithm 3
+    # run algorithm 4
     debug_message("Beginning Algorithm 4.")
     tstart = timer()
     alg4(equations)
@@ -240,37 +240,53 @@ def alg4(equations):
   def merge_visible(equations1, equations2):
     intersect_array1 = []
     intersect_array2 = []
+    temp_x = 0
+    temp_y = 0
 
     # add intersect points to the arrays
-    for i in range(0, len(equations1)):
-      if ((i + 1) < len(equations1)):
-        intersect_array1.append((intersection(equations1[i], equations1[i+1])))
-    for i in range(0, len(equations2)):
-      if ((i + 1) < len(equations2)):
-        intersect_array2.append((intersection(equations2[i], equations2[i+1])))
+    if len(equations1) != 1:
+      for i in range(0, len(equations1)):
+        if ((i + 1) < len(equations1)):
+          temp_x, temp_y = intersection(equations1[i], equations1[i+1])
+          intersect_array1.append((temp_x, temp_y))
+    if len(equations2) != 1:
+      for i in range(0, len(equations2)):
+        if ((i + 1) < len(equations2)):
+          temp_x, temp_y = intersection(equations2[i], equations2[i+1])
+          intersect_array2.append((temp_x, temp_y))
+    if len(equations1) == 1 and len(equations2) == 1:
+      return
 
-    # boolean to check to see if the left is bigger than the right
-    bigger_y = False
-    bigger_y = (intersect_array1[0][1] > intersect_array2[0][1])
 
-    length1 = len(intersect_array1)
-    length2 = len(intersect_array2)
-    i = 0
-    j = 0
-    while bigger_y:
-      if i == length1 or i == length2:
-        break
-      bigger_y = (intersect_array1[i][1] > intersect_array2[j][1])
-      if intersect_array1[i][0] > intersect_array2[j][0]:
-        j += 1
-      else:
-        i += 1
-    for k in range(0, len(equations1)):
-      if k > i:
-        equations[k].visible = False
-    for k in range(0, len(equations2)):
-      if k < j:
-        equations[k].visible = False
+    if len(equations1) >= 2 and len(equations2) >= 2:
+      # boolean to check to see if the left is bigger than the right
+      bigger_y = False
+      bigger_y = (intersect_array1[0][1] > intersect_array2[0][1])
+
+      length1 = len(intersect_array1)
+      length2 = len(intersect_array2)
+      i = 0
+      j = 0
+      while bigger_y:
+        if i == length1 or j == length2:
+          break
+        bigger_y = (intersect_array1[i][1] > intersect_array2[j][1])
+        if intersect_array1[i][0] > intersect_array2[j][0]:
+          j += 1
+        else:
+          i += 1
+      for k in range(0, len(equations1)):
+        if k > i:
+          equations[k].visible = False
+      for k in range(0, len(equations2)):
+        if k < j:
+          equations[k].visible = False
+    elif len(equations1) == 2 and len(equations2) == 1:
+      if intersect_array1[0][1] < equations2[0].value(intersect_array1[0][0]):
+        equations1[1].visible = False
+    elif len(equations2) == 2 and len(equations1) == 1:
+      if intersect_array2[0][1] < equations2[0].value(intersect_array2[0][0]):
+        equations2[0].visible = False
 
   # base case for recursive call
   if len(equations) <= 2:
