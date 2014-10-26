@@ -46,6 +46,18 @@
 \textsc{MergeVisible}(equations1, equations2):
 
 \begin{algorithmic}
+\If {equations1.length + equations2.length == 2}
+	\State \Return equations1 $\cup$ equations2
+\EndIf
+\If {equations1.length + equations2.length == 3}
+	\State equations $\gets$ equations1 $\cup$ equations2
+	\State x, y $\gets Intersection($equations[0], equations[2]$)$
+	\If {equations[1](x) < y}
+		\State \Return equations[0] $\cup$ equations[2]
+	\Else
+		\State \Return equations
+	\EndIf
+\EndIf
 \State intersects1 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equations1 $\}$
 \State intersects2 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equations2 $\}$
 \State i, j $\gets 0$
