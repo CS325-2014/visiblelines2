@@ -245,20 +245,20 @@ def alg4(equations):
     for i in range(0, len(equations1)):
       if ((i + 1) < len(equations1)):
         intersect_array1.append((intersection(equations1[i], equations1[i+1])))
-    for i in range(0, len(equations2)) 
+    for i in range(0, len(equations2)):
       if ((i + 1) < len(equations2)):
         intersect_array2.append((intersection(equations2[i], equations2[i+1])))
 
     # boolean to check to see if the left is bigger than the right
-    bool bigger_y = False
+    bigger_y = False
     bigger_y = (intersect_array1[0][1] > intersect_array2[0][1])
 
     length1 = len(intersect_array1)
     length2 = len(intersect_array2)
-    int i = 0
-    int j = 0
+    i = 0
+    j = 0
     while bigger_y:
-      if i == length1 || i == length2:
+      if i == length1 or i == length2:
         break
       bigger_y = (intersect_array1[i][1] > intersect_array2[j][1])
       if intersect_array1[i][0] > intersect_array2[j][0]:
