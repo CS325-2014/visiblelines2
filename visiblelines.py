@@ -90,11 +90,22 @@ def test_case(string):
     # run algorithm 3
     debug_message("Beginning Algorithm 3.")
     tstart = timer()
-    #alg3(equations)
+    alg3(equations)
     tend = timer()
     alg3_duration = tend - tstart
     debug_message("Algorithm 3 Finished. Duration: {0} seconds."
       .format(alg3_duration))
+
+    # write actual results
+    f = open(outputfile, "a")
+    first = True
+    for e in equations:
+      if first:
+        first = False
+      else:
+        f.write(", ")
+      f.write(str(e.visible))
+    f.write("\n")
 
     # run algorithm 4
     debug_message("Beginning Algorithm 4.")
@@ -215,18 +226,14 @@ def alg3(equations):
   # 3->end of equations
   for i in range(2, len(equations)):
     count = 1
-    debug_message("i = {0}".format(i))
     visible_lines.append(equations[i])
     for k in reversed(range(1, len(visible_lines))):
       # assign largest visible k to variable
       # continue loop and find next largest visible k, assign to variable
       # break from loop
-      debug_message("len of visible_lines: {0}".format(len(visible_lines)))
       if k == 1:
         break
       xkK, ykK = intersection(visible_lines[k-1], visible_lines[k-2])
-      debug_message("ykK: {0}, equations[i].value(xkK): {1} xkK: {2}"
-        .format(ykK, equations[i].value(xkK), xkK))
       if ykK < equations[i].value(xkK):
         equations[i-count].visible = False
         count += 1
@@ -238,78 +245,52 @@ def alg3(equations):
 # algorithm 4
 def alg4(equations):
   def merge_visible(equations1, equations2):
-    intersect_array1 = []
-    intersect_array2 = []
-    temp_x = 0
-    temp_y = 0
-
-    # add intersect points to the arrays
-    if len(equations1) != 1:
-      for i in range(0, len(equations1)):
-        if ((i + 1) < len(equations1)):
-          temp_x, temp_y = intersection(equations1[i], equations1[i+1])
-          intersect_array1.append((temp_x, temp_y))
-    if len(equations2) != 1:
-      for i in range(0, len(equations2)):
-        if ((i + 1) < len(equations2)):
-          temp_x, temp_y = intersection(equations2[i], equations2[i+1])
-          intersect_array2.append((temp_x, temp_y))
-
+    # base cases
     if len(equations1) == 1 and len(equations2) == 1:
-      equations1.extend(equations2)
-      return equations1
-
+      return
     if len(equations1) + len(equations2) == 3:
-      if len(equations1) == 2 and len(equations2) == 1:
-        if intersect_array1[0][1] < equations2[0].value(intersect_array1[0][0]):
-          equations1[1].visible = False
-      elif len(equations2) == 2 and len(equations1) == 1:
-        if intersect_array2[0][1] < equations2[0].value(intersect_array2[0][0]):
-          equations2[0].visible = False
       equations1.extend(equations2)
-      return equations1
+      x,y = intersection(equations1[0], equations1[2])
+      if equations1[1].value(x) < y:
+        equations[1].visible = False
+      return
 
-    if len(equations1) + len(equations2) >= 4:
-      # boolean to check to see if the left is bigger than the right
-      bigger_y = False
-      bigger_y = (intersect_array1[0][1] > intersect_array2[0][1])
+    # variable setup
+    equations1 = filter(lambda x: x.visible, equations1)
+    equations2 = filter(lambda x: x.visible, equations2)
+    intersects1 = []
+    intersects2 = []
+    for i in range(0, len(equations1) - 1):
+      intersects1.append(intersection(equations1[i], equations1[i+1]))
+    for i in range(0, len(equations2) - 1):
+      intersects2.append(intersection(equations2[i], equations2[i+1]))
+    i = 0
+    j = 0
 
-      length1 = len(intersect_array1)
-      length2 = len(intersect_array2)
-      i = 0
-      j = 0
-      while bigger_y:
-        if i == length1 or j == length2:
-          break
-        bigger_y = (intersect_array1[i][1] > intersect_array2[j][1])
-        if intersect_array1[i][0] > intersect_array2[j][0]:
-          j += 1
-        else:
-          i += 1
-      for k in range(0, len(equations1)):
-        if k > i:
-          equations[k].visible = False
-      for k in range(0, len(equations2)):
-        if k < j:
-          equations[k].visible = False
-    equations1.extend(equations2)
-    return equations1
+    # algorithm
+    initial = intersects1[0][1] > intersects2[0][1]
+    while (intersects1[i][1] > intersects2[j][1]) == initial:
+      if i == len(intersects1) - 1 or j == len(intersects2) - 1:
+        return
+      if intersects1[i][0] < intersects2[j][0]:
+        i = i + 1
+      else:
+        j = j + 1
 
-  # base case for recursive call
+    # apply results
+    for k in range(i, len(equations1)):
+      equations1[k].visible = False
+    for k in range(0, j):
+      equations2[k].visible = False
+
+  # recursion base case
   if len(equations) <= 2:
-    for e in equations:
-      e.visible = True
-    return equations
-  # this breaks each subsection into 2 parts, recursively
+    map(lambda x: setattr(x, 'visible', True), equations)
   else:
-    # debug_message("equations: {0}".format(equations))
-    # debug_message("left: {0} right: {1}".format(equations[:len(equations)/2],
-    #   equations[len(equations)/2:]))
-    equations_left = alg4(equations[:len(equations)/2])
-    equations_right = alg4(equations[len(equations)/2:])
-    debug_message("alg4 left: {0} right: {1}".format(equations_left, equations_right))
-    return merge_visible(equations_left, equations_right)
-
+    alg4(equations[:len(equations)/2])
+    alg4(equations[len(equations)/2:])
+    merge_visible(equations[:len(equations)/2],
+      equations[len(equations)/2:])
 
 # ---- [ main ] ---------------------------------------------------------------
 
