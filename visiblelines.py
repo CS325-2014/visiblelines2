@@ -293,10 +293,14 @@ def alg4(equations):
     for e in equations:
       e.visible = True
     return equations
-  # this breaks each subsection into 2 parts, recursively (Theta(logn) time)
+  # this breaks each subsection into 2 parts, recursively 
   else:
+    debug_message("equations: {0}".format(equations))
+    debug_message("left: {0} right: {1}".format(equations[:len(equations)/2],
+      equations[len(equations)/2 + 1:]))
     equations_left = alg4(equations[:len(equations)/2])
     equations_right = alg4(equations[len(equations)/2 + 1:])
+    debug_message("left: {0} right: {1}".format(equations_left, equations_right))
     return merge_visible(equations_left, equations_right)
 
 
