@@ -43,10 +43,28 @@
 
 \section{Pseudocode}
 
-\textsc{MergeVisible}(equation1, equation2)
+\textsc{MergeVisible}(equations1, equations2):
 
-%\begin{algorithmic}
-%\end{algorithmic}
+\begin{algorithmic}
+\State intersects1 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equations1 $\}$
+\State intersects2 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equation2s $\}$
+\State i, j $\gets 0$
+\While{intersects1[i] > intersects2[j] == intersects1[0] > intersects2[0]}
+	\If {i == intersects1.length - 1 or j == intersects2.length - 1}
+		\State i = intersects1.length - 1
+		\State j = 0
+		\State \textbf{break}
+	\EndIf
+	\If {intersects1[i].x < intersects2[j].x}
+		\State i $\gets$ i + 1
+	\Else
+		\State j $\gets$ j + 1
+	\EndIf
+\EndWhile
+\State \Return equations1[0:i] $\cup$ equations2[j:end]
+\end{algorithmic}
+
+Running time: $\Theta(n)$
 
 \textsc{Algorithm4}(equations):
 
@@ -57,9 +75,11 @@
 	\State $x \gets \lfloor\frac{equations.length}{2}\rfloor$
 	\State left $\gets$ \textsc{Algorithm4}(equations$[start:x])$
 	\State right $\gets$ \textsc{Algorithm4}(equations$[x+1:end])$
-	\State \textsc{MergeVisible}(left, right)
+	\State \Return \textsc{MergeVisible}(left, right)
 \EndIf
 \end{algorithmic}
+
+Running time: $\Theta(n\log{n})$
 
 \section{Proof of Claim 3}
 
