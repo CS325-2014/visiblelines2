@@ -61,13 +61,13 @@
 \State intersects1 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equations1 $\}$
 \State intersects2 $\gets \{ Intersection(z_j, z_k) | 1 \leq j \leq t - 1, k = j + 1, z_j,z_k \in$ equations2 $\}$
 \State i, j $\gets 0$
+\State check first equation1 element against everything in equation2
 \While{intersects1[i] > intersects2[j] == intersects1[0] > intersects2[0]}
-	\If {i == intersects1.length - 1 or j == intersects2.length - 1}
-		\State i = intersects1.length - 1
-		\State j = 0
+	\If {i == intersects1.length - 1 and j == intersects2.length - 1}
 		\State \textbf{break}
-	\EndIf
-	\If {intersects1[i].x < intersects2[j].x}
+	\ElsIf {i == intersects1.length - 1}
+		\State j $\gets$ i + 1
+	\ElsIf {j == intersects2.length - 1 or intersects1[i].x < intersects2[j].x}
 		\State i $\gets$ i + 1
 	\Else
 		\State j $\gets$ j + 1
