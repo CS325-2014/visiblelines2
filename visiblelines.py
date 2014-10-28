@@ -264,6 +264,7 @@ def alg4(equations):
       intersects1.append(intersection(equations1[i], equations1[i+1]))
     for i in range(0, len(equations2) - 1):
       intersects2.append(intersection(equations2[i], equations2[i+1]))
+    debug_message("{}, {}".format(intersects1, intersects2))
     i = 0
     j = 0
 
@@ -275,21 +276,23 @@ def alg4(equations):
       if k == 0:
         x_start = float("-inf")
       else:
-        x_start = intersects2[k-1][0]
+        x_start = intersects2[k - 1][0]
       if k == len(equations2) - 1:
         x_end = float("inf")
       else:
         x_end = intersects2[k][0]
       if x >= x_start and x <= x_end:
+        debug_message("x in {}, {}".format(x_start, x_end))
         i = 1
-        for l in range(2, len(intersects1)):
-          debug_message("i = {0}".format(i))
-          debug_message("j = {0}".format(j))
-          debug_message("k = {0}".format(k))
-          if intersects1[l] == intersects1[l-1]:
+        debug_message("{}, {}".format(intersects1, intersects2))
+        for l in range(1, len(intersects1)):
+          if intersects1[l] == intersects1[l - 1]:
             i += 1
-            debug_message("i2 = {0}".format(i))
+        if intersects1[0] == intersection(equations1[len(equations1) - 1],
+          equations2[0]):
+          i += 1
         j = k
+        break
 
     # algorithm
     if i == 0 and j == 0:
