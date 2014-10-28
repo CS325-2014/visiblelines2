@@ -66,7 +66,7 @@
 	\If {i == intersects1.length - 1 and j == intersects2.length - 1}
 		\State \textbf{break}
 	\ElsIf {i == intersects1.length - 1}
-		\State j $\gets$ i + 1
+		\State j $\gets$ j + 1
 	\ElsIf {j == intersects2.length - 1 or intersects1[i].x < intersects2[j].x}
 		\State i $\gets$ i + 1
 	\Else
@@ -146,5 +146,7 @@ Therefore, by induction, algorithm 4 can correctly determine the subset of visib
 $\square$
 
 \section{Benchmarking Results and Analysis}
+
+
 
 \end{document}

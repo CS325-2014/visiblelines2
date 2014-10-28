@@ -110,7 +110,7 @@ def test_case(string):
     # run algorithm 4
     debug_message("Beginning Algorithm 4.")
     tstart = timer()
-    alg4(equations)
+    #alg4(equations)
     tend = timer()
     alg4_duration = tend - tstart
     debug_message("Algorithm 4 Finished. Duration: {0} seconds."
@@ -264,7 +264,6 @@ def alg4(equations):
       intersects1.append(intersection(equations1[i], equations1[i+1]))
     for i in range(0, len(equations2) - 1):
       intersects2.append(intersection(equations2[i], equations2[i+1]))
-    debug_message("{}, {}".format(intersects1, intersects2))
     i = 0
     j = 0
 
