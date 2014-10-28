@@ -282,15 +282,7 @@ def alg4(equations):
       else:
         x_end = intersects2[k][0]
       if x >= x_start and x <= x_end:
-        debug_message("x in {}, {}".format(x_start, x_end))
         i = 1
-        debug_message("{}, {}".format(intersects1, intersects2))
-        for l in range(1, len(intersects1)):
-          if intersects1[l] == intersects1[l - 1]:
-            i += 1
-        if intersects1[0] == intersection(equations1[len(equations1) - 1],
-          equations2[0]):
-          i += 1
         j = k
         break
 
@@ -309,22 +301,6 @@ def alg4(equations):
         else:
           j += 1
       if i == len(intersects1) - 1 and j == len(intersects2) - 1:
-        # check last equation2 element against everything in equation1
-        # for k in range(0, len(equations2)):
-          # x, y = intersection(equations1[0], equations2[k])
-          # x_start = 0
-          # x_end = 0
-          # if k == 0:
-          #   x_start = float("-inf")
-          # else:
-          #   x_start = intersects2[k-1][0]
-          # if k == len(equations2) - 1:
-          #   x_end = float("inf")
-          # else:
-          #   x_end = intersects2[k][0]
-          # if x >= x_start and x <= x_end:
-          #   i = 1
-          #   j = k
         return
 
     # apply results
