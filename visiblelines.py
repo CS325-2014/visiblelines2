@@ -252,7 +252,7 @@ def alg4(equations):
       equations1.extend(equations2)
       x,y = intersection(equations1[0], equations1[2])
       if equations1[1].value(x) < y:
-        equations[1].visible = False
+        equations1[1].visible = False
       return
 
     # variable setup
@@ -270,16 +270,21 @@ def alg4(equations):
     # algorithm
     initial = intersects1[0][1] > intersects2[0][1]
     while (intersects1[i][1] > intersects2[j][1]) == initial:
-      if i == len(intersects1) - 1 or j == len(intersects2) - 1:
-        return
       if intersects1[i][0] < intersects2[j][0]:
         i = i + 1
-      else:
+      elif intersects1[i][0] > intersects2[j][0]:
         j = j + 1
+      else:
+        break
+      if i > len(intersects1) - 1 or j > len(intersects2) - 1:
+        break
+    start = len(equations1) - i
 
     # apply results
-    for k in range(i, len(equations1)):
+    #debug_message("i = {0}".format(i))
+    for k in range(start, len(equations1)):
       equations1[k].visible = False
+    #debug_message("j = {0}".format(j))
     for k in range(0, j):
       equations2[k].visible = False
 
