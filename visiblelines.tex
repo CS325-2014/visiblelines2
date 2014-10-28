@@ -153,6 +153,17 @@ The power regression for algorithm 4 is $y = 5\times 10^{-05} \times x^{0.9925}$
 
 \includegraphics[scale=0.85]{graph2.png}
 
+\subsection{Extrapolation and Interpretation}
+
+\begin{itemize}
+
+\item The largest instance we can do for Algorithm 4 in one hour is $8.25\times 10^{7}$. Algorithm 3 did about 77 million within an hour, which means this one is faster than Algorithm 3, and much faster than the other two algorithms.
+
+\item Slope: 0.9925
+
+Our algorithm ran faster than expected, since we expected an asymptotic runtime of $\Theta(n\log{n})$. From our slope, we noticed that we have an experimental running time that is roughly linear. Our implementation of Algorithm 4 may have been faster than expected because we tried to write much of our code to complete in linear time, avoiding nested loops whenever possible.
+
+\end{itemize}
 
 
 \end{document}
