@@ -267,22 +267,66 @@ def alg4(equations):
     i = 0
     j = 0
 
-    # algorithm
-    initial = intersects1[0][1] > intersects2[0][1]
-    while (intersects1[i][1] > intersects2[j][1]) == initial:
-      if intersects1[i][0] < intersects2[j][0]:
-        i = i + 1
-      elif intersects1[i][0] > intersects2[j][0]:
-        j = j + 1
+    # check first equation1 element against everything in equation2
+    for k in range(0, len(equations2)):
+      x, y = intersection(equations1[0], equations2[k])
+      x_start = 0
+      x_end = 0
+      if k == 0:
+        x_start = float("-inf")
       else:
-        break
-      if i > len(intersects1) - 1 or j > len(intersects2) - 1:
-        break
-    start = len(equations1) - i
+        x_start = intersects2[k-1][0]
+      if k == len(equations2) - 1:
+        x_end = float("inf")
+      else:
+        x_end = intersects2[k][0]
+      if x >= x_start and x <= x_end:
+        i = 1
+        for l in range(2, len(intersects1)):
+          debug_message("i = {0}".format(i))
+          debug_message("j = {0}".format(j))
+          debug_message("k = {0}".format(k))
+          if intersects1[l] == intersects1[l-1]:
+            i += 1
+            debug_message("i2 = {0}".format(i))
+        j = k
+
+    # algorithm
+    if i == 0 and j == 0:
+      initial = intersects1[0][1] > intersects2[0][1]
+      while (intersects1[i][1] > intersects2[j][1]) == initial:
+        if i == len(intersects1) - 1 and j == len(intersects2) - 1:
+          break
+        if i == len(intersects1) - 1:
+          j += 1
+        elif j == len(intersects2) - 1:
+          i += 1
+        elif intersects1[i][0] < intersects2[j][0]:
+          i += 1
+        else:
+          j += 1
+      if i == len(intersects1) - 1 and j == len(intersects2) - 1:
+        # check last equation2 element against everything in equation1
+        # for k in range(0, len(equations2)):
+          # x, y = intersection(equations1[0], equations2[k])
+          # x_start = 0
+          # x_end = 0
+          # if k == 0:
+          #   x_start = float("-inf")
+          # else:
+          #   x_start = intersects2[k-1][0]
+          # if k == len(equations2) - 1:
+          #   x_end = float("inf")
+          # else:
+          #   x_end = intersects2[k][0]
+          # if x >= x_start and x <= x_end:
+          #   i = 1
+          #   j = k
+        return
 
     # apply results
     #debug_message("i = {0}".format(i))
-    for k in range(start, len(equations1)):
+    for k in range(i, len(equations1)):
       equations1[k].visible = False
     #debug_message("j = {0}".format(j))
     for k in range(0, j):
